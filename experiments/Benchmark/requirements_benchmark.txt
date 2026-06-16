@@ -1,0 +1,6 @@
+# Install the shared core (numpy, scipy, torch come with it):
+-e ..
+# Canonical results in this repo were produced with:
+# torch==2.12.0+cpu
+# Benchmark-specific: TopoNetX for hypergraph construction
+toponetx

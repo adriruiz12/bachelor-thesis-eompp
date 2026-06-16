@@ -1,0 +1,127 @@
+{
+  "config": {
+    "n_base_graphs": 300,
+    "decomposition": "edges",
+    "feature_mode": "constant",
+    "feat_dim": 16,
+    "k_range": [
+      2,
+      5
+    ],
+    "size_range": [
+      3,
+      6
+    ],
+    "overlap_max": 2,
+    "max_card": 8,
+    "data_seed": 0,
+    "split_seed": 0,
+    "hidden": 64,
+    "n_layers": 2,
+    "lr": 0.01,
+    "weight_decay": 0.0005,
+    "max_epochs": 300,
+    "patience": 40,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "results_path": "results_synthetic.json"
+  },
+  "results": {
+    "Clique-GCN": {
+      "acc_mean": 0.5,
+      "acc_std": 0.0,
+      "f1_mean": 0.3333333333333333,
+      "f1_std": 0.0,
+      "acc_per_seed": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "Clique-GIN": {
+      "acc_mean": 0.5,
+      "acc_std": 0.0,
+      "f1_mean": 0.3333333333333333,
+      "f1_std": 0.0,
+      "acc_per_seed": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "A: uniform EO baseline": {
+      "acc_mean": 0.5,
+      "acc_std": 0.0,
+      "f1_mean": 0.3333333333333333,
+      "f1_std": 0.0,
+      "acc_per_seed": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "B: EO weights only": {
+      "acc_mean": 0.5,
+      "acc_std": 0.0,
+      "f1_mean": 0.3333333333333333,
+      "f1_std": 0.0,
+      "acc_per_seed": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "C: chi only": {
+      "acc_mean": 1.0,
+      "acc_std": 0.0,
+      "f1_mean": 1.0,
+      "f1_std": 0.0,
+      "acc_per_seed": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "D: EO-Pattern (full)": {
+      "acc_mean": 1.0,
+      "acc_std": 0.0,
+      "f1_mean": 1.0,
+      "f1_std": 0.0,
+      "acc_per_seed": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "E: shuffled chi": {
+      "acc_mean": 0.5,
+      "acc_std": 0.0,
+      "f1_mean": 0.3333333333333333,
+      "f1_std": 0.0,
+      "acc_per_seed": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  }
+}
