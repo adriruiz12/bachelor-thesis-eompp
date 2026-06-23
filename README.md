@@ -6,8 +6,8 @@ This repository contains the surveys, implementation, and experiments developed 
 
 The proposed **EO-Pattern** layer combines:
 
-1. the equal-edges transition kernel $P^{\mathrm{EE}}$, which determines how messages are weighted; and
-2. a cardinality descriptor $\chi_{vu}$, which records how adjacent vertices share hyperedges of different sizes.
+1. The equal-edges transition kernel $P^{\mathrm{EE}}$, which determines how messages are weighted.
+2. A cardinality descriptor $\chi_{vu}$, which records how adjacent vertices share hyperedges of different sizes.
 
 ## Guiding question
 
@@ -36,38 +36,38 @@ Each experiment directory contains its own README, executable scripts, dependenc
 
 Let $H=(V,\mathcal{E})$ be a hypergraph, let $\mathcal{E}(v,u)$ be the set of hyperedges containing both $v$ and $u$, and let $d_H(v)$ be the number of hyperedges incident to $v$. For adjacent vertices $v\neq u$, define the raw connection mass
 
-$$
+$
 Z_{vu}
 =
 \sum_{e\in\mathcal{E}(v,u)}
 \frac{1}{|e|-1}.
-$$
+$
 
 The equal-edges transition probability is
 
-$$
+$
 P^{\mathrm{EE}}(v,u)
 =
 \frac{Z_{vu}}{d_H(v)}.
-$$
+$
 
 For every non-isolated vertex, $P^{\mathrm{EE}}$ is row-stochastic. Connections through smaller hyperedges contribute more strongly than connections through larger ones.
 
 The cardinality descriptor is
 
-$$
+$
 \chi_{vu}
 =
 \frac{1}{Z_{vu}}
 \sum_{e\in\mathcal{E}(v,u)}
 \frac{1}{|e|-1}\,\mathbf{e}_{b(|e|)},
-$$
+$
 
 where $\mathbf{e}_{b(|e|)}$ is the one-hot vector associated with the cardinality bin of $e$. Cardinalities above the chosen maximum are placed in an overflow bin. Thus, $\chi_{vu}$ is a fixed structural descriptor, not a learned embedding; the message function learns how to use it.
 
 One layer performs
 
-$$
+$
 m_v^{(\ell+1)}
 =
 \sum_{u\in\mathcal{N}_H(v)}
@@ -77,16 +77,16 @@ h_v^{(\ell)},
 h_u^{(\ell)},
 \chi_{vu}
 \right),
-$$
+$
 
-$$
+$
 h_v^{(\ell+1)}
 =
 \varphi^{(\ell)}\!\left(
 h_v^{(\ell)},
 m_v^{(\ell+1)}
 \right).
-$$
+$
 
 The implementation in `experiments/eompp/` uses sparse incidence matrices to compute $P^{\mathrm{EE}}$ and $\chi$, and pure PyTorch for the message-passing layers.
 
