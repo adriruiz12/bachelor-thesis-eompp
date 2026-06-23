@@ -10,7 +10,7 @@ derived quantities used below:
         Eidi-Otter-inspired construction.
         With w_e = 1/(|e|-1) and Z = B diag(w) B^T,
             P^EE(v, u) = Z[v, u] / d_H(v)            (v != u)
-        the rows of P^EE sum to 1 by construction.
+        the rows of P^EE sum to 1 for vertices with d_H(v) > 0.
 
   * chi_vu     : normalized, 1/(|e|-1)-weighted one-hot histogram of the
         cardinalities of the hyperedges shared by v and u.
@@ -26,8 +26,8 @@ import scipy.sparse as sp
 
 
 # --------------------------------------------------------------------------
-# Incidence matrix from a hyperedge list (dependency-free).
-# --------------------------------------------------------------------------
+# Incidence matrix from a hyperedge list (TopoNetX-independent).
+# # --------------------------------------------------------------------------
 def build_incidence_scipy(n_nodes, hyperedges):
     """Build the N x M incidence matrix B from a list of hyperedges.
 

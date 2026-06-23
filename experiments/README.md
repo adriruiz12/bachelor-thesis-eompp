@@ -5,11 +5,11 @@ Code for the experiments on the **EO-Pattern** message passing layer
 
 Three experiments, each answering a distinct question:
 
-|       Folder       |       Experiment        |                                 Question                                 |         Task         |
-|--------------------|-------------------------|--------------------------------------------------------------------------|----------------------|
-|    `Synthetic/`    |     1 - Separation      | Does the EO layer detect structure a clique expansion provably destroys? | graph classification |
-|    `Benchmark/`    | 2 - Realistic benchmark |   Does that ability translate into accuracy on real co-citation data?    | node classification  |
-| `Complementarity/` |   3 - Complementarity   |    Is there a regime where `P^EE` *and* `χ` are *jointly* necessary?     | node classification  |
+|       Folder       |       Experiment        |                                 Question                                  |         Task         |
+|--------------------|-------------------------|---------------------------------------------------------------------------|----------------------|
+|    `Synthetic/`    |     1 - Separation      | Does the EO layer detect structure a clique expansion provably destroys?  | graph classification |
+|    `Benchmark/`    | 2 - Realistic benchmark |    Does that ability translate into accuracy on real co-citation data?    | node classification  |
+| `Complementarity/` |   3 - Complementarity   | Is there a regime where `P^EE` and `χ` provide complementary information? | node classification  |
 
 ## Shared core: the `eompp` package
 
@@ -48,7 +48,7 @@ pip install -r Benchmark/requirements_benchmark.txt
 
 ## Run
 
-**Experiment 1 - Synthetic (graph classification).** Deterministic (50 % / 100 %); seeds do not affect the result.
+**Experiment 1 - Synthetic (graph classification).** The 50 % results of the clique-only models and chi-free EO variants follow from the paired construction and feature symmetry; the 100 % results of the chi-based variants are empirical outcomes of the committed run.
 ```bash
 cd Synthetic
 python experiment_synthetic.py
@@ -58,15 +58,15 @@ python experiment_synthetic.py
 **Experiment 2 - Benchmark (node classification).** 50/25/25 random splits, multi-seed, resumable.
 ```bash
 cd Benchmark
-python experiment_benchmark.py --dataset cora     --n-seeds 20 --out results_cora.json
-python experiment_benchmark.py --dataset citeseer --n-seeds 20 --out results_citeseer.json
+python experiment_benchmark.py --dataset cora     --n-seeds 20 --out reproduced_results_cora.json
+python experiment_benchmark.py --dataset citeseer --n-seeds 20 --out reproduced_results_citeseer.json
 # quick smoke test:  python experiment_benchmark.py --dataset cora --quick
 ```
 
 **Experiment 3 - Complementarity (P/Q/R gadget).** Canonical configuration:
 ```bash
 cd Complementarity
-python pqr.py --n-gadgets 450 --m-decoys 4 --n-seeds 10 --n-layers 1
+python pqr.py --n-gadgets 450 --m-decoys 4 --n-seeds 10 --n-layers 1 --out reproduced_results_complementarity.json
 ```
 
 Each folder has its own README with the experiment design, the results table,

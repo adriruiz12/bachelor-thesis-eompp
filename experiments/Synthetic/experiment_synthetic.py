@@ -91,8 +91,10 @@ def build_batch(examples, max_card):
 
     in_deg = torch.zeros(x.size(0), dtype=torch.float32)
     in_deg = in_deg.index_add(
-        0, edge_index[1], torch.ones(edge_index.size(1)))
-    in_deg = in_deg.clamp(min=1.0)
+        0,
+        edge_index[1],
+        torch.ones(edge_index.size(1)),
+    )
 
     return dict(x=x, edge_index=edge_index, p_ee=p_ee, chi=chi,
                 in_deg=in_deg, batch=batch, y=y, num_graphs=len(examples))

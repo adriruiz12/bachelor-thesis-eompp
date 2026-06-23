@@ -2,5 +2,5 @@
 -e ..
 # Canonical results in this repo were produced with:
 # torch==2.12.0+cpu
-# Benchmark-specific: TopoNetX for hypergraph construction
+# Benchmark-specific dependency
 toponetx

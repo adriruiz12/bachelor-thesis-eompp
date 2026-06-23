@@ -9,7 +9,7 @@ head) wrap these same layers.
 
   * GCNLayer / GINLayer  : clique-expansion graph convolutions.
   * AllDeepSetsLayer     : hypergraph-native Deep Sets layer (Chien 2022).
-  * EOPatternLayer       : the proposed Eidi-Otter layer; two booleans
+  * EOPatternLayer       : the proposed EO-Pattern layer; two booleans
                            (use_pee, use_chi) select the ablation variant.
 """
 

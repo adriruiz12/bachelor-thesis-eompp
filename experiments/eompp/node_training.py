@@ -24,8 +24,7 @@ def to_tensors(data, device):
 
     # clique-expansion degree (distinct neighbours), for GCN/GIN and EO mean
     deg = torch.zeros(data["n_nodes"], dtype=torch.float32)
-    deg = deg.index_add(0, edge_index[1],
-                        torch.ones(edge_index.size(1))).clamp(min=1.0)
+    deg = deg.index_add(0,edge_index[1],torch.ones(edge_index.size(1)))
 
     # incidence matrix as a torch sparse tensor (for AllDeepSets)
     B = data["incidence"].tocoo()

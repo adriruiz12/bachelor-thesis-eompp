@@ -1,5 +1,5 @@
 """
-synthetic_data.py
+data_synthetic.py
 =================
 
 Generator of the synthetic hypergraph-classification dataset.

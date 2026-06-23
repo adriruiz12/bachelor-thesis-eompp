@@ -5,7 +5,7 @@ data_benchmark.py
 Loading of the real co-citation hypergraph benchmarks (Cora, Citeseer)
 and assembly of the EO-Pattern message passing data.
 
-The EO-Pattern quantities (P^EE, chi) and the dependency-free incidence
+The EO-Pattern quantities (P^EE, chi) and the TopoNetX-independent SciPy
 builder live in the shared `eompp.eo`; this module only handles the
 benchmark-specific concerns: reading the committed pickle datasets,
 building the incidence matrix with TopoNetX when available, or with the
@@ -117,7 +117,7 @@ def build_incidence(n_nodes, hyperedges, use_toponetx=True, verify=True):
 # Splits.
 # --------------------------------------------------------------------------
 def make_split(labels, seed, fracs=(0.5, 0.25, 0.25)):
-    """Random per-class proportional train/val/test split (AllSet protocol)."""
+    """Random class-stratified proportional train/validation/test split."""
 
     rng = np.random.default_rng(seed)
     labels = np.asarray(labels)

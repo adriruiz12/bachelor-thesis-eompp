@@ -10,9 +10,10 @@ Motivation
 ----------
 In the twin-pair synthetic, with constant node features any row-stochastic
 weight (uniform mean or P^EE) is inert, so only chi discriminates (P^EE itself
-differs between the twins but is unusable on featureless nodes).  In the real
-co-citation benchmark chi is inert and no ingredient beats the EO-A baseline
-beyond noise.  Neither experiment ever makes the *combination* necessary.
+differs between the twins but is unusable on featureless nodes).  In the real 
+co-citation benchmark, structured chi provides no observable benefit, while 
+P^EE yields at most a small gain over EO-A. Neither experiment demonstrates
+a clear empirical benefit from combining both quantities.
 
 This experiment fixes that with the P/Q/R gadget.  For each target node v:
 
@@ -22,8 +23,9 @@ This experiment fixes that with the P/Q/R gadget.  For each target node v:
 
 
   * chi separates P from {Q,R} but NOT Q from R (normalisation erases multiplicity).
-  * P^EE separates R from {P,Q} but NOT P from Q (normalisation erases cardinality).
-  * Only (chi, P^EE) jointly single out Q = (e3, S=1).
+  * P^EE separates R from {P,Q} but NOT P from Q because the scalar connection mass
+  Z does not retain its cardinality composition.
+  * Only (chi, P^EE) jointly single out Q = (e3, Z=1).
 
 The Q-neighbour carries the true class of v in its feature; P/R neighbours are
 decoys with random classes; v and the fillers x_i are neutral.  Recovering y_v is
@@ -87,13 +89,13 @@ def make_pqr_dataset(n_gadgets=800, n_classes=2, m_decoys=2, seed=0,
             feat_class[x] = -1
             hyperedges.append([v, uQ, x])
 
-        # P-type decoys: (e2, S=1) -> one size-2 hyperedge each
+        # P-type decoys: (e2, Z=1) -> one size-2 hyperedge each
         for _ in range(m_decoys):
             uP = new()
             feat_class[uP] = int(rng.integers(n_classes))
             hyperedges.append([v, uP])
 
-        # R-type decoys: (e3, S=1/2) -> one size-3 hyperedge each
+        # R-type decoys: (e3, Z=1/2) -> one size-3 hyperedge each
         for _ in range(m_decoys):
             uR = new()
             feat_class[uR] = int(rng.integers(n_classes))
@@ -156,7 +158,7 @@ def check_signatures(data):
     for card, z in zip(c, np.round(Z, 3)):
         sigs[(int(card), float(z))] = sigs.get((int(card), float(z)), 0) + 1
     print(f"[check] target v={v}  d_H={data['d_h'][v]:.0f}  "
-          f"signatures (card, S) -> count: {sigs}")
+          f"signatures (card, Z) -> count: {sigs}")
 
 
 # --------------------------------------------------------------------------

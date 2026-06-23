@@ -95,7 +95,7 @@ width 128.
 |           Model            |   Cora (all)   | Cora (active)  | Citeseer (all) | Citeseer (active) |
 |----------------------------|----------------|----------------|----------------|-------------------|
 |            MLP             |  73.8 +/- 1.4  |  75.1 +/- 2.0  |  72.2 +/- 0.9  |    74.9 +/- 1.9   |
-|         Clique-GCN         |  79.8 +/- 1.7  |  84.8 +/- 1.7  |  73.3 +/- 1.3  |    76.1 +/- 2.0   |
+|         Clique-GCN         |  79.9 +/- 1.5  |  85.0 +/- 1.7  |  73.2 +/- 1.4  |    76.3 +/- 2.1   |
 |         Clique-GIN         |  76.5 +/- 1.4  |  82.8 +/- 1.5  |  71.3 +/- 1.0  |    73.9 +/- 2.0   |
 |        AllDeepSets         |  75.2 +/- 1.5  |  76.5 +/- 2.0  |  73.1 +/- 1.0  |    75.9 +/- 1.9   |
 | EO-A: Uniform EO baseline  |  76.2 +/- 1.2  |  80.3 +/- 1.4  |  72.4 +/- 1.1  |    75.7 +/- 1.6   |
@@ -107,37 +107,32 @@ width 128.
 ### Reading the results
 
 This is a **negative result for `chi` on co-citation**, and it is the honest
-headline. On both datasets `EO-E ≈ EO-D`, so the specific `chi`-to-edge
-assignment carries no usable signal here. On Cora the ablation ladder
-EO-A..EO-D spans 76.2→76.6 with per-model std ≈ 1.2–1.5; all differences lie
-within one standard deviation. The ~2.4-pt gain of the EO variants over the
-MLP (73.8) is consistent across all 20 seeds and is attributable to
-neighbourhood aggregation already present in EO-A; neither `P^EE` nor `chi`
-add anything on top of it. On Citeseer all EO variants are indistinguishable
-from the MLP.
+headline. On both datasets `EO-E ≈ EO-D`, providing no evidence that the model
+uses the structured organization of `chi`. On Cora, variants EO-A..EO-D range
+from 76.2 % to 76.6 %. Relative to EO-A, `P^EE` produces only a 0.4-point gain,
+while the variants using `chi` provide no clear additional improvement.
 
-**Clique-GCN with the same residual connection is clearly stronger on Cora
-(79.8/84.8) and matches the EO variants within noise on Citeseer
-(73.3/76.1).**
+The EO variants exceed the feature-only MLP on average, but this difference
+cannot be attributed exclusively to neighborhood aggregation because the MLP
+is non-residual. Clique-GCN is clearly stronger than the EO variants on Cora.
+On Citeseer, the observed accuracies are close and no EO variant provides a
+clear advantage.
 
-A third caveat: 47% of Cora nodes and 56% of Citeseer nodes lie in no
-hyperedge of size ≥2 and receive no propagation under any model — this
-affects all models' *all*-node numbers similarly and does not differentially
-favour EO or the explicit clique-expansion baselines.
-
-The synthetic twin experiment remains the clean proof that `chi` *can* carry
-structure clique expansion destroys, and the P/Q/R gadget shows that the joint
-signature of `P^EE` and `chi` can be useful within the normalized factorization;
-co-citation simply is not a structure where either helps.
+Finally, 47 % of Cora nodes and 56 % of Citeseer nodes satisfy `d_H(v)=0` and
+receive no messages from other nodes under any structural model. The all-node
+results therefore mix structurally active nodes with nodes for which
+neighborhood propagation is unavailable.
 
 ## Note on compute
 
 Both datasets were run on CPU (hidden 128, 2 layers, **20 seeds**, lr = 1e-3),
-following the AllSet evaluation protocol (Chien et al. 2022).
+using independently generated class-stratified 50/25/25 splits.
 
-To reproduce:
+To reproduce, use a new output filename: if an existing canonical result file is
+supplied, the resumable driver will reuse its completed seeds instead of rerunning
+them.
 
 ```bash
-python experiment_benchmark.py --dataset cora     --n-seeds 20 --out results_cora.json
-python experiment_benchmark.py --dataset citeseer --n-seeds 20 --out results_citeseer.json
+python experiment_benchmark.py --dataset cora     --n-seeds 20 --out reproduced_results_cora.json
+python experiment_benchmark.py --dataset citeseer --n-seeds 20 --out reproduced_results_citeseer.json
 ```
